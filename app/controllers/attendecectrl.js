@@ -17,9 +17,9 @@ try {
     let response = {
         'data': data
     }
-    res.status(200).json(response);
+    return   res.status(200).json(response);
 } catch (error) {
-    res.status(500).json('sorry something fail!');
+    return   res.status(500).json('sorry something fail!');
     console.log(error);
 }
 }
@@ -36,7 +36,7 @@ var checkattendence = async (req,res)=>{
         'name':name,
         'status': data
     }
-    res.status(200).json(response);
+    return   res.status(200).json(response);
 }
 module.exports = {
     addattendence,

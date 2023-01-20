@@ -46,7 +46,7 @@ var totalexpensesdetails = async( req,res) => {
     // let response = {
     //     'Expenses': data
     // }
-    res.status(200).json(data);
+    return res.status(200).json(data);
 }
 var countExpenses = async (req,res) => {
     const { count, rows }  = await expenses.findAndCountAll({});

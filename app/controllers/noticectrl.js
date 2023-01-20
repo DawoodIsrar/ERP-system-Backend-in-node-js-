@@ -12,7 +12,7 @@ var addnotice = async (req,res)=>{
     let response = {
         'data': data
     }
-    res.status(200).json(response);
+    return  res.status(200).json(response);
 }
 module.exports = {
     addnotice

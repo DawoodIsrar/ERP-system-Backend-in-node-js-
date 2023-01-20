@@ -12,7 +12,7 @@ var addapr = async (req,res)=>{
     let response = {
         'data': 'appraisal add'
     }
-    res.status(200).json(response);
+    return   res.status(200).json(response);
 }
 module.exports = {
     addapr

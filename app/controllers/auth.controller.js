@@ -57,25 +57,25 @@ exports.signup = async (req, res) => {
             }
           }).then(roles => {
             user.setRoles(roles).then(() => {
-              res.send({ message: "User registered successfully!" });
+              return res.send({ message: "User registered successfully!" });
             });
           });
         } else {
           // user role = 1
           user.setRoles([1]).then(() => {
-            res.send({ message: "User registered successfully!" });
+            return res.send({ message: "User registered successfully!" });
           });
         }
       })
       .catch(err => {
         console.log(err.message )
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
       });
   }else{
-    res.status(500).send({"message":"sorry user email already exist"})
+    return res.status(500).send({"message":"sorry user email already exist"})
   }
  }catch(err){
-  res.status(500).send({"message":err.message})
+  return res.status(500).send({"message":err.message})
  }
 };
 
@@ -121,7 +121,7 @@ exports.signin = (req, res) => {
       });
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
 };
 
@@ -179,13 +179,13 @@ exports.addEmp = async (req, res) => {
     })
     )
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: err.message });
     });
   }else{
-    res.send({"message":"sorry email already exist or department is not present"})
+    return res.send({"message":"sorry email already exist or department is not present"})
   }
   }catch(err){
-    res.status(500).send({message:err.message})
+    return  res.status(500).send({message:err.message})
   }
  
     
@@ -367,7 +367,7 @@ exports.adddepart = (req, res) => {
     desc: req.body.desc
   }).then(res.status(200).send('department added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: err.message });
     });
     
 };
@@ -379,9 +379,9 @@ exports.addAppraisal = (req, res) => {
     id: req.body.id,
     name: req.body.name,
     appraisal: req.body.appraisal
-  }).then(res.status(200).send('Appraisals is added successfully'))
+  }).then(returnres.status(200).send('Appraisals is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: err.message });
     });
     
 };
@@ -404,7 +404,7 @@ exports.addSalary = async (req, res) => {
       e_id:exist.id
     }).then(res.status(200).send('salary added successfully'))
       .catch(err => {
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
       });
 
   }
@@ -425,14 +425,14 @@ exports.ShowSalaryofEmployee = async (req, res) => {
     let data =await db.sequelize.query('select s."id",e."username" as emp_name,s."month",s."annual",s."basic_pay",s."bonus" from "Employees"  as e  inner join "Salaries" as s on s.e_id = e.id where e.id='+req.params.id,{
       type:QueryTypes.SELECT,
   })
-  res.status(200).json(data);
+  return res.status(200).json(data);
   }else{
-    res.status(500).send({ message: "sorry the name of employee is not register and you cannot add attendence for him" });
+    return res.status(500).send({ message: "sorry the name of employee is not register and you cannot add attendence for him" });
   }
  
  
 } catch (error) {
-    res.status(500).send('internal server error')
+  return res.status(500).send('internal server error')
 }
     
 };
@@ -450,14 +450,14 @@ exports.ShowAllSalaries = async (req, res) => {
     let data =await db.sequelize.query('select e."username" as emp_name, s."month",s."annual",s."basic_pay",s."bonus" from "Employees"  as e  inner join "Salaries" as s on s.e_id = e.id',{
       type:QueryTypes.SELECT,
   })
-  res.status(200).json(data);
+  return res.status(200).json(data);
   // }else{
   //   res.status(500).send({ message: "sorry the name of employee is not register and you cannot add attendence for him" });
   // }
  
  
 } catch (error) {
-    res.status(500).send('internal server error')
+  return res.status(500).send('internal server error')
 }
  
   
@@ -487,7 +487,7 @@ exports.addExpenses = async (req, res) => {
 
     }).then(res.status(200).send('Expense added successfully'))
       .catch(err => {
-        res.status(500).send({ message: err.message });
+        return  res.status(500).send({ message: err.message });
       });
   }
   
@@ -512,13 +512,13 @@ exports.addExpenses = async (req, res) => {
            // let response = {
            //     'data': data
            // }
-           res.status(200).json(data);
+           return res.status(200).json(data);
       }
       else{
-        res.status(200).send({'message':"sorry the name you have given is not register"});
+        return res.status(200).send({'message':"sorry the name you have given is not register"});
       }
     } catch (error) {
-        res.status(500).send({'message':error.message})
+      return  res.status(500).send({'message':error.message})
     }
         
     
@@ -535,7 +535,7 @@ exports.addBulkExpenses = (req, res) => {
     apply_for:req.body.apply_for
   })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
     
 };
@@ -549,7 +549,7 @@ exports.addNotice = (req, res) => {
     d_id:req.body.d_id
   }).then(res.status(200).send('Notice is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
   }
 //add salary
@@ -585,10 +585,10 @@ exports.addNotice = (req, res) => {
     e_id:exist.id
   }).then(res.status(200).send('Project is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
  }else{
-  res.send({ message: "sorry the employee name you enter is not register " });
+  return res.send({ message: "sorry the employee name you enter is not register " });
  }
     }
      //show projects by employee id
@@ -610,13 +610,13 @@ const exist = await employee.findOne({
        // let response = {
        //     'data': data
        // }
-       res.status(200).json(data);
+       return  res.status(200).json(data);
   }
   else{
     res.status(200).send({'message':"sorry the id you have given is not register"});
   }
 } catch (error) {
-    res.status(500).send({'message':error.message})
+  return   res.status(500).send({'message':error.message})
 }
     
 
@@ -640,13 +640,13 @@ const exist = await employee.findOne({
        // let response = {
        //     'data': data
        // }
-       res.status(200).json(data);
+       return   res.status(200).json(data);
   // }
   // else{
   //   res.status(200).send({'message':"sorry the id you have given is not register"});
   // }
 } catch (error) {
-    res.status(500).send({'message':error.message})
+  return   res.status(500).send({'message':error.message})
 }
     
 
@@ -663,7 +663,7 @@ exports.addProjectsDetails = (req, res) => {
     p_id:req.body.p_id
   }).then(res.status(200).send('Project details is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
   }
 //add Attendence
@@ -683,10 +683,10 @@ exports.addAttendence = async (req, res) => {
       e_id:exist.id
     }).then(res.status(200).send('Attendence is added successfully'))
       .catch(err => {
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
       });
   }else{
-    res.status(500).send({ message: "sorry the name of employee is not register and you cannot add attendence for him" });
+    return res.status(500).send({ message: "sorry the name of employee is not register and you cannot add attendence for him" });
   }
   
   }
@@ -700,7 +700,7 @@ exports.addLeave = (req, res) => {
    
   }).then(res.status(200).send('leave is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
   }
 
@@ -724,10 +724,10 @@ if(exist!=null){
    
   }).then(res.status(200).send('task is added successfully'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return  res.status(500).send({ message: err.message });
     });
 }else{
-  res.send({ message: "sorry the employee name you enter is not register"});
+  return res.send({ message: "sorry the employee name you enter is not register"});
 }
 }
  //show tasks detail by employee id
@@ -749,13 +749,13 @@ const exist = await employee.findOne({
        // let response = {
        //     'data': data
        // }
-       res.status(200).json(data);
+       return res.status(200).json(data);
   }
   else{
-    res.status(200).send({'message':"sorry the id you have given is not register"});
+    return res.status(200).send({'message':"sorry the id you have given is not register"});
   }
 } catch (error) {
-    res.status(500).send({'message':error.message})
+  return  res.status(500).send({'message':error.message})
 }
     
 
@@ -783,10 +783,10 @@ exports.LoanAndAdvance =async (req, res) => {
     e_id:exist.id
   }).then(res.status(200).send('Loan Request is done'))
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: err.message });
     });
  }else{
-  res.status(500).send({ message: "sorry the name of employee is not register and cannot apply for loan" });
+  return res.status(500).send({ message: "sorry the name of employee is not register and cannot apply for loan" });
  }
   
   
@@ -811,13 +811,13 @@ exports.LoanAndAdvance =async (req, res) => {
          // let response = {
          //     'data': data
          // }
-         res.status(200).json(data);
+         return  res.status(200).json(data);
     }
     else{
-      res.status(200).send({'message':"sorry the id you have given is not register"});
+      return  res.status(200).send({'message':"sorry the id you have given is not register"});
     }
   } catch (error) {
-      res.status(500).send({'message':error.message})
+    return  res.status(500).send({'message':error.message})
   }
       
   
@@ -841,14 +841,14 @@ exports.LoanAndAdvance =async (req, res) => {
            // let response = {
            //     'data': data
            // }
-           res.status(200).json(data);
+           return  res.status(200).json(data);
       }
       else{
-        res.status(200).send({'message':"sorry the Name of employee you have given is not register"});
+        return  res.status(200).send({'message':"sorry the Name of employee you have given is not register"});
       }
   
   } catch (error) {
-      res.status(500).send({'message':error.message})
+    return res.status(500).send({'message':error.message})
   }
       
   
@@ -872,14 +872,14 @@ exports.LoanAndAdvance =async (req, res) => {
            // let response = {
            //     'data': data
            // }
-           res.status(200).json(data);
+           return  res.status(200).json(data);
       }
       else{
-        res.status(200).send({'message':"sorry the Name of employee you have given is not register"});
+        return   res.status(200).send({'message':"sorry the Name of employee you have given is not register"});
       }
   
   } catch (error) {
-      res.status(500).send({'message':error.message})
+    return  res.status(500).send({'message':error.message})
   }
       
   
@@ -903,11 +903,11 @@ exports.LoanAndAdvance =async (req, res) => {
            // let response = {
            //     'data': data
            // }
-           res.status(200).json(data);
+           return    res.status(200).json(data);
       // }
     
   } catch (error) {
-      res.status(500).send({'message':error.message})
+    return  res.status(500).send({'message':error.message})
   }
       
   
@@ -925,9 +925,9 @@ exports.LoanAndAdvance =async (req, res) => {
       // let response = {
       //     'data': data
       // }
-      res.status(200).json(data);
+      return res.status(200).json(data);
   } catch (error) {
-      res.status(500).send({'message':error.message})
+    return  res.status(500).send({'message':error.message})
   }
       
   
@@ -941,5 +941,5 @@ exports.LoanAndAdvance =async (req, res) => {
     const response = {
       'Employee':result
     }
-    res.send(response);
+    return  res.send(response);
   }

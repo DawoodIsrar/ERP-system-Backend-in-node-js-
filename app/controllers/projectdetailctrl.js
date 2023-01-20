@@ -13,7 +13,7 @@ var addpd = async (req,res)=>{
     let response = {
         'data': 'projects detail add'
     }
-    res.status(200).json(response);
+    return  res.status(200).json(response);
 }
 module.exports = {
     addpd

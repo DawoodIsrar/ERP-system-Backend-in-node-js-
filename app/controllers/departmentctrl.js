@@ -13,7 +13,7 @@ var adddpt = async (req,res)=>{
     let response = {
         'data': 'departments add'
     }
-    res.status(200).json(response);
+    return res.status(200).json(response);
 }
 //add departments in a bulk
 var addBulkdp = async (req,res)=>{
@@ -31,8 +31,8 @@ var addBulkdp = async (req,res)=>{
     let response = {
         'data': 'departments in the bulk added'
     }
-    res.status(200).json(response);
-    res.end();
+    return   res.status(200).json(response);
+   
 }
 //total departments details
 var totalDeparts = async( req,res) => {
@@ -44,8 +44,8 @@ var totalDeparts = async( req,res) => {
     // let response = {
     //     'data': data
     // }
-    res.status(200).json(data);
-    res.end();
+    return res.status(200).json(data);
+    
 }
 //count total departments
 var countDepart = async (req,res) => {
@@ -53,8 +53,8 @@ var countDepart = async (req,res) => {
     // let response = {
     //     'Total departments':  count 
     // }
-    res.json(count);
-    res.end();
+    return res.json(count);
+    
 }
 module.exports = {
     adddpt,

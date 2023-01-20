@@ -12,7 +12,7 @@ var addleaves = async (req,res)=>{
     let response = {
         'data': 'leave add'
     }
-    res.status(200).json(response);
+    return  res.status(200).json(response);
 }
 module.exports = {
     addleaves

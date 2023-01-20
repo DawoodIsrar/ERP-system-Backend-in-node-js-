@@ -21,7 +21,7 @@ var addpay = async (req,res)=>{
     let response = {
         'data': 'payrol add'
     }
-    res.status(200).json(response);
+    return  res.status(200).json(response);
 }
 module.exports = {
     addpay
